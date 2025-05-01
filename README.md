@@ -63,7 +63,7 @@ Suivez ces étapes pour installer et lancer le projet sur votre machine locale (
         ```
     *   *Note : Sous Windows, cette commande peut nécessiter des droits d'administrateur ou des ajustements selon votre environnement. Si les images n'apparaissent pas, vérifiez que le lien a bien été créé dans le dossier `public` et qu'il pointe vers `storage/app/public`.*
 
-6.  **(Optionnel) Installer les dépendances Node.js :**
+6.  **Installer les dépendances Node.js :**
     *   Si vous souhaitez modifier les assets front-end (CSS, JS) ou si le projet utilise Vite/Mix pour la compilation, vous aurez besoin de Node.js et npm.
     *   Installez les dépendances Node :
         ```bash
@@ -88,6 +88,11 @@ L'application Médiathèque devrait maintenant être fonctionnelle sur votre mac
 
 Pour tester différentes fonctionnalités et restrictions, vous pouvez utiliser les comptes suivants (créés via les seeders ou présents dans l'export SQL) :
 
+
+*   **Tester la limite d'emprunts :**
+    *   Créez un nouveau compte utilisateur via le formulaire d'inscription standard.
+    *   Essayez d'emprunter plus de 3 médias (livres/CDs). Le système devrait vous empêcher de dépasser cette limite.
+
 *   **Compte bloqué (Adhésion expirée) :**
     *   **Email :** `mohamed.benadrouche@gmail.com`
     *   **Mot de passe :** `password`
@@ -101,12 +106,10 @@ Pour tester différentes fonctionnalités et restrictions, vous pouvez utiliser 
 *   **Compte Administrateur :**
     *   **Email :** `admin@example.com`
     *   **Mot de passe :** `password`
-    *   **Scénario :** Accédez au panneau d'administration (via le lien approprié, souvent `/admin` après connexion) pour gérer les utilisateurs, les livres, les CDs, les emprunts, etc.
+    *   **Scénario :** Connectez-vous avec ce compte. Sur le tableau de bord principal (Dashboard) qui s'affiche après connexion, vous devriez trouver un lien pour accéder au **Panneau d'Administration**. Cliquez sur ce lien pour gérer les utilisateurs, les livres, les CDs, les emprunts, etc.
     *   **Note importante sur l'admin (Filament) :** Après avoir utilisé une action de création, modification ou suppression dans une ressource du panneau d'administration, il peut être nécessaire de cliquer sur un des liens du menu latéral (par exemple "Dashboard" ou la liste de la ressource) pour quitter la page de l'action et voir la liste mise à jour.
 
-*   **Tester la limite d'emprunts :**
-    *   Créez un nouveau compte utilisateur via le formulaire d'inscription standard.
-    *   Essayez d'emprunter plus de 3 médias (livres/CDs). Le système devrait vous empêcher de dépasser cette limite.
+
 
 ---
 
