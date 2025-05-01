@@ -1,60 +1,140 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projet Médiathèque (Laravel)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ce projet est une application web de gestion de médiathèque développée avec le framework Laravel. Elle permet aux utilisateurs de consulter les médias disponibles (livres, CDs), de les emprunter (sous conditions), et aux administrateurs de gérer le catalogue, les utilisateurs et les emprunts.
+
+## Installation pour le professeur
+
+Suivez ces étapes pour installer et lancer le projet sur votre machine locale (WAMP, MAMP, LAMP, etc.).
+
+1.  **Cloner le dépôt :**
+    *   Ouvrez votre terminal ou Git Bash.
+    *   Naviguez vers le dossier où vous souhaitez placer le projet (par exemple, votre dossier `www` ou `htdocs`).
+    *   Exécutez la commande :
+        ```bash
+        git clone https://github.com/Lbey19/Mediatheque.git
+        ```
+    *   Entrez dans le dossier du projet :
+        ```bash
+        cd Mediatheque
+        ```
+
+2.  **Installer les dépendances PHP :**
+    *   Assurez-vous d'avoir [Composer](https://getcomposer.org/) installé.
+    *   Exécutez la commande :
+        ```bash
+        composer install
+        ```
+        *(Cela peut prendre quelques minutes pour télécharger toutes les bibliothèques nécessaires).*
+
+3.  **Configuration de l'environnement :**
+    *   Ce dépôt inclut un fichier `.env.example` qui sert de modèle. Copiez-le pour créer votre propre fichier de configuration :
+        ```bash
+        cp .env.example .env
+        ```
+        *(Sous Windows, si `cp` ne fonctionne pas, vous pouvez faire `copy .env.example .env` ou copier/coller manuellement le fichier et le renommer en `.env`).*
+    *   Générez la clé d'application unique pour sécuriser votre installation :
+        ```bash
+        php artisan key:generate
+        ```
+    *   Ouvrez le fichier `.env` que vous venez de créer avec un éditeur de texte.
+    *   **Vérifiez et modifiez** les lignes suivantes pour correspondre à votre configuration de base de données MySQL locale :
+        ```dotenv
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1           # Généralement correct pour une installation locale
+        DB_PORT=3306               # Port MySQL par défaut
+        DB_DATABASE=maison_du_livre  # IMPORTANT : Nom de la base de données que vous allez créer/utiliser
+        DB_USERNAME=root             # IMPORTANT : Votre nom d'utilisateur MySQL (souvent 'root')
+        DB_PASSWORD=                 # IMPORTANT : Votre mot de passe MySQL (laisser vide si 'root' n'a pas de mot de passe)
+        ```
+    *   Sauvegardez les modifications du fichier `.env`.
+
+4.  **Base de données :**
+    *   Ouvrez votre outil de gestion de base de données (par exemple, phpMyAdmin via `http://localhost/phpmyadmin/`).
+    *   Créez une **nouvelle base de données vide**. Nommez-la exactement comme vous l'avez indiqué dans la variable `DB_DATABASE` du fichier `.env` (par exemple, `maison_du_livre`). Assurez-vous d'utiliser un encodage comme `utf8mb4_unicode_ci`.
+    *   Sélectionnez cette nouvelle base de données vide.
+    *   Allez dans l'onglet **"Importer"**.
+    *   Cliquez sur "Choisir un fichier" (ou équivalent) et sélectionnez le fichier `maison_du_livre.sql` qui se trouve à la racine de ce dépôt cloné.
+    *   Cliquez sur "Exécuter" (ou "Go") pour importer la structure et les données dans votre base de données.
+
+5.  **Lien de stockage :**
+    *   Pour que les images des livres et CDs s'affichent correctement, vous devez créer un lien symbolique entre `public/storage` et `storage/app/public`. Exécutez la commande :
+        ```bash
+        php artisan storage:link
+        ```
+    *   *Note : Sous Windows, cette commande peut nécessiter des droits d'administrateur ou des ajustements selon votre environnement. Si les images n'apparaissent pas, vérifiez que le lien a bien été créé dans le dossier `public` et qu'il pointe vers `storage/app/public`.*
+
+6.  **(Optionnel) Installer les dépendances Node.js :**
+    *   Si vous souhaitez modifier les assets front-end (CSS, JS) ou si le projet utilise Vite/Mix pour la compilation, vous aurez besoin de Node.js et npm.
+    *   Installez les dépendances Node :
+        ```bash
+        npm install
+        ```
+    *   Compilez les assets (pour le développement) :
+        ```bash
+        npm run dev
+        ```
+        *(Laissez cette commande tourner dans un terminal séparé pendant que vous développez, ou exécutez `npm run build` pour une compilation unique).*
+
+7.  **Lancer le serveur de développement :**
+    *   Vous pouvez maintenant lancer le serveur de développement intégré de Laravel :
+        ```bash
+        php artisan serve
+        ```
+    *   Ouvrez votre navigateur et allez à l'adresse indiquée (généralement `http://127.0.0.1:8000` ou `http://localhost:8000`).
+
+L'application Médiathèque devrait maintenant être fonctionnelle sur votre machine.
+
+## Scénarios de Test / Comptes Utilisateurs
+
+Pour tester différentes fonctionnalités et restrictions, vous pouvez utiliser les comptes suivants (créés via les seeders ou présents dans l'export SQL) :
+
+*   **Compte bloqué (Adhésion expirée) :**
+    *   **Email :** `mohamed.benadrouche@gmail.com`
+    *   **Mot de passe :** `password`
+    *   **Scénario :** Essayez de réserver/emprunter un livre ou un CD. L'action devrait être bloquée en raison de l'expiration de l'adhésion.
+
+*   **Compte avec emprunt en retard :**
+    *   **Email :** `Clara@gmail.com`
+    *   **Mot de passe :** `password`
+    *   **Scénario :** Essayez de réserver/emprunter un nouveau livre ou CD. L'action devrait être bloquée en raison d'un emprunt précédent non retourné à temps.
+
+*   **Compte Administrateur :**
+    *   **Email :** `admin@example.com`
+    *   **Mot de passe :** `password`
+    *   **Scénario :** Accédez au panneau d'administration (via le lien approprié, souvent `/admin` après connexion) pour gérer les utilisateurs, les livres, les CDs, les emprunts, etc.
+    *   **Note importante sur l'admin (Filament) :** Après avoir utilisé une action de création, modification ou suppression dans une ressource du panneau d'administration, il peut être nécessaire de cliquer sur un des liens du menu latéral (par exemple "Dashboard" ou la liste de la ressource) pour quitter la page de l'action et voir la liste mise à jour.
+
+*   **Tester la limite d'emprunts :**
+    *   Créez un nouveau compte utilisateur via le formulaire d'inscription standard.
+    *   Essayez d'emprunter plus de 3 médias (livres/CDs). Le système devrait vous empêcher de dépasser cette limite.
+
+---
+
+*(Les sections suivantes sont les sections standard du README de Laravel)*
 
 ## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Laravel is a web application framework with expressive, elegant syntax... *(gardez le reste si vous le souhaitez)*
 
 ## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+...
 
 ## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+...
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+...
 
 ## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+...
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+...
 
 ## License
 
