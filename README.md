@@ -111,34 +111,5 @@ Pour tester différentes fonctionnalités et restrictions, vous pouvez utiliser 
 
 
 
----
-
-*(Les sections suivantes sont les sections standard du README de Laravel)*
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax... *(gardez le reste si vous le souhaitez)*
-
-## Learning Laravel
-
-...
-
-## Laravel Sponsors
-
-...
-
-## Contributing
-
-...
-
-## Code of Conduct
-
-...
-
-## Security Vulnerabilities
-
-...
-
-## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
