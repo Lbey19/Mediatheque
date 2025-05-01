@@ -13,11 +13,14 @@ class Livre extends Model
     protected $fillable = [
         'titre',
         'auteur',
-        'description',
         'genre',
+        'description',
         'nb_exemplaires',
         'disponible',
-        'image'
+        'image',
+        'isbn',
+        'nombre_pages',
+        'edition',
     ];
 
     protected $appends = ['image_url'];
@@ -44,6 +47,14 @@ class Livre extends Model
 
     public function emprunts()
     {
-        return $this->hasMany(Emprunt::class);
+    return $this->hasMany(Emprunt::class);
+    }
+
+    public function prochainRetourPrevu()
+    {
+        return $this->emprunts()
+            ->whereNull('date_retour_effective')
+            ->orderBy('date_retour_prevue')
+            ->value('date_retour_prevue');
     }
 }

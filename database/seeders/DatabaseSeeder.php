@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders; // Doit être la première ligne après <?php
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -13,11 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Appeler les seeders spécifiques
+        $this->call([
+            UserSeeder::class,
+            LivreSeeder::class,
+            EmpruntSeeder::class, // Ajoutez cette ligne si vous avez créé EmpruntSeeder
         ]);
+
+        // User::factory(10)->create(); // Vous pouvez commenter ou supprimer ceci si UserSeeder crée déjà des users
+
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]); // Vous pouvez commenter ou supprimer ceci
     }
 }

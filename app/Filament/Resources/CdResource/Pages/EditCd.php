@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\AdherentResource\Pages;
+namespace App\Filament\Resources\CdResource\Pages;
 
-use App\Filament\Resources\AdherentResource;
+use App\Filament\Resources\CdResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditAdherent extends EditRecord
+class EditCd extends EditRecord
 {
-    protected static string $resource = AdherentResource::class;
+    protected static string $resource = CdResource::class;
 
     protected function getHeaderActions(): array
     {
