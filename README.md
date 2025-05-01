@@ -1,4 +1,4 @@
-# Projet Médiathèque (Laravel)
+# Projet Médiathèque 
 
 Ce projet est une application web de gestion de médiathèque développée avec le framework Laravel. Elle permet aux utilisateurs de consulter les médias disponibles (livres, CDs), de les emprunter (sous conditions), et aux administrateurs de gérer le catalogue, les utilisateurs et les emprunts.
 
